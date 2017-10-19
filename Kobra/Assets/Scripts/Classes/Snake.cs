@@ -2,12 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Snake: 
+ * Keeps track of the direction, position and lenght of the snake.
+ * Tells the bullets when to spawn.
+ */
+
 public class Snake : MonoBehaviour, IDamagable {
 
     public GameObject bulletPrefab;
+    public Bullet bullet;
+    private ObjectPool pool;
+    private Vector3 spawnPos;
+
+    private int currentLength;
+    public int maxLength;
 
     public GameObject snakeBody;
-    ObjectPool pool;
+    
     public Snake head;
     public Snake tail;
     private Snake next;
@@ -26,15 +37,20 @@ public class Snake : MonoBehaviour, IDamagable {
     void Start() {
         head = FindObjectOfType<Snake>();
         pool = FindObjectOfType<ObjectPool>();
+
+
+        maxLength = 4;
+        currentLength = 1;
     }
 
     void OnCollisionEnter(Collision col) {
-        if (col.gameObject.tag == "Player") {
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "Bullet" || col.gameObject.tag == "Mouse") {
             Die();
         }
     }
 
 	//the snake dies when the head hits its body, a bullet hits it, or when it hits the mouse
+    //Dying redirects to the gameover screen
 	public void Die() {
         SceneChanger.GameOver();
 	}
@@ -76,14 +92,24 @@ public class Snake : MonoBehaviour, IDamagable {
                 nextPos = new Vector3(nextPos.x + 1, nextPos.y, nextPos.z);
                 break;
         }
+        bullet.ChangeDir(direction);
+
         //Move the head to the newly instantiated snake part
         temp = pool.GetObject(nextPos);
         head.SetNext(temp.GetComponent<Snake>());
         head = temp.GetComponent<Snake>();
 
+        if (currentLength >= maxLength) {
+            TailFunction();
+        }
+        else {
+            head.currentLength++;
+        }
+
         return;
     }
 
+    //Set the enum to a new direction
     public void ChangeDir() {
         if (Input.GetKey(KeyCode.W) && direction != Direction.Down) {
             direction = Direction.Up;
@@ -98,22 +124,52 @@ public class Snake : MonoBehaviour, IDamagable {
             direction = Direction.Right;
         }
     }
+    
+    public void Shoot() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            //The bullet kills the player, therefore there needs to be enough space between it and the player when it spawns
+            switch (direction) {
+                case Direction.Up:
+                    //move up
+                    spawnPos = new Vector3(nextPos.x, nextPos.y, nextPos.z + 2);
+                    break;
 
-    public Direction GetDir() {
-        return direction;
+                case Direction.Down:
+                    //move down
+                    spawnPos = new Vector3(nextPos.x, nextPos.y, nextPos.z - 2);
+                    break;
+
+                case Direction.Left:
+                    //move left
+                    spawnPos = new Vector3(nextPos.x - 2, nextPos.y, nextPos.z);
+                    break;
+
+                case Direction.Right:
+                    //move right
+                    spawnPos = new Vector3(nextPos.x + 2, nextPos.y, nextPos.z);
+                    break;
+            }
+
+            Instantiate(bulletPrefab, spawnPos, transform.rotation);
+        }
     }
-
+    
     public void TailFunction() {
         //makes sure the tail is always the last gameobject
         Snake tempSnake = tail;
         tail = tail.GetNext();
         tempSnake.RemoveTail();
     }
-    
-    public void Shoot() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Debug.Log("Shoot!");
-            Instantiate(bulletPrefab, nextPos, transform.rotation);
-        }
+
+    void OnEnable() {
+        EventManager.DeathEvent += AddBody;
+    }
+
+    void OnDisable() {
+        EventManager.DeathEvent -= AddBody;
+    }
+
+    public void AddBody() {
+        head.maxLength++;
     }
 }

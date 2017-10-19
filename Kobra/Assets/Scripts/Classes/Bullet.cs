@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Bullet: 
+ * Keeps track of the direction of the bullet.
+ * Makes sure the bullets are removed when no longer needed.
+ */
+
 public class Bullet : MonoBehaviour {
-    public static Snake snake;
+    public Snake snake;
     public Snake.Direction direction;
     private int speed;
 
-    void Start() {
-        snake = GameObject.Find("Snake").GetComponent<Snake>();
-    }
-
     void Update() {
-        direction = snake.GetDir();
         switch (direction) {
             case Snake.Direction.Up:
                 //move up
@@ -34,6 +34,19 @@ public class Bullet : MonoBehaviour {
                 transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
                 break;
         }
+        if (transform.position.z > 100 || transform.position.x > 100) {
+            Destroy(gameObject);
+        }
+    } 
+
+    public void ChangeDir(Snake.Direction dir) {
+        direction = dir;
     }
-    
+
+    void OnCollisionEnter (Collision col) {
+        if (col.gameObject.tag == "Mouse") {
+            EventManager.StartEvent();
+        }
+    }
+
 }
