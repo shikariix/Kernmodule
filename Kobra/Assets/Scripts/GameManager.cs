@@ -8,11 +8,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-	public Snake player;
+	public SnakeHead player;
 	public Mouse mouse;
 
 	void Start() {
-        player = FindObjectOfType<Snake>();
+        player = FindObjectOfType<SnakeHead>();
         mouse = FindObjectOfType<Mouse> ();
 
 		InvokeRepeating ("TimerInvoke", 0, 0.1f);

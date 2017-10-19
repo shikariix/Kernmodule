@@ -9,27 +9,27 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
     public Snake snake;
-    public Snake.Direction direction;
+    public SnakeHead.Direction direction;
     private int speed;
 
     void Update() {
         switch (direction) {
-            case Snake.Direction.Up:
+            case SnakeHead.Direction.Up:
                 //move up
                 transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
                 break;
 
-            case Snake.Direction.Down:
+            case SnakeHead.Direction.Down:
                 //move down
                 transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
                 break;
 
-            case Snake.Direction.Left:
+            case SnakeHead.Direction.Left:
                 //move left
                 transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
                 break;
 
-            case Snake.Direction.Right:
+            case SnakeHead.Direction.Right:
                 //move right
                 transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
                 break;
@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour {
         }
     } 
 
-    public void ChangeDir(Snake.Direction dir) {
+    public void ChangeDir(SnakeHead.Direction dir) {
         direction = dir;
     }
 
