@@ -15,10 +15,10 @@ public class Snake : MonoBehaviour, IDamagable {
 	public void SetNext(Snake IN) {
 		next = IN;
 	}
-
-	public Snake GetNext() {
-		return next;
-	}
+    
+    public Snake GetNext() {
+        return next;
+    }
 
     public void RemoveTail() {
         gameObject.SetActive(false);

@@ -20,22 +20,19 @@ public class ObjectPool : MonoBehaviour {
 		}
 	}
 
-	//returns part of snake so it can be used
+	//returns part of snake in the given position so it can be used
 	public GameObject GetObject(Vector3 pos) {
-		//activate current bullet, point it in the right direction
+		//activate current snakepart, point it in the right direction
 		Snake snake = objects[currentSnake];
         snake.gameObject.transform.position = pos;
 		snake.gameObject.SetActive(true);
 
-		//cycle through our bullets, make sure to loop around
+		//cycle through our snake, make sure to loop around
 		if (++currentSnake == MAX_LENGTH) {
 			currentSnake = 0;
 		}
 
 		return snake.gameObject;
 	}
-
-	// make a GetSnake function
-	// keep track of how many snakeparts are in use so it doesn go over CAPACITY
 
 }

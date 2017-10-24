@@ -9,33 +9,37 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
     public Snake snake;
-    public SnakeHead.Direction direction;
+    private SnakeHead.Direction direction;
     private int speed;
 
+    private Vector3 moveUp = new Vector3(0, 0, 1);
+    private Vector3 moveDown = new Vector3(0, 0, -1);
+    private Vector3 moveLeft = new Vector3(-1, 0, 0);
+    private Vector3 moveRight = new Vector3(1, 0, 0);
+
+    AudioSource audioSource;
+
     void Update() {
+        //set direction of bullet based on direction of snake head
         switch (direction) {
             case SnakeHead.Direction.Up:
-                //move up
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
+                transform.position += moveUp;
                 break;
 
             case SnakeHead.Direction.Down:
-                //move down
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
+                transform.position += moveDown;
                 break;
 
             case SnakeHead.Direction.Left:
-                //move left
-                transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+                transform.position += moveLeft;
                 break;
 
             case SnakeHead.Direction.Right:
-                //move right
-                transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+                transform.position += moveRight;
                 break;
         }
         if (transform.position.z > 100 || transform.position.x > 100) {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     } 
 
@@ -49,4 +53,19 @@ public class Bullet : MonoBehaviour {
         }
     }
 
+
+    void OnEnable() {
+        EventManager.DeathEvent += Disable;
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+    }
+
+    void OnDisable() {
+        EventManager.DeathEvent -= Disable;
+    }
+
+    void Disable() {
+        gameObject.SetActive(false);
+    }
 }
