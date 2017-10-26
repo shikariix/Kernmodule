@@ -1,0 +1,50 @@
+Initialize engine version: 5.6.1f1 (2860b30f0b54)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) HD Graphics 5500 (ID=0x1616)
+    Vendor:   Intel
+    VRAM:     1119 MB
+    Driver:   20.19.15.4549
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\Documenten\BUILD\KobraBuild_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\Documenten\BUILD\KobraBuild_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\Documenten\BUILD\KobraBuild_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\Documenten\BUILD\KobraBuild_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\Documenten\BUILD\KobraBuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\Documenten\BUILD\KobraBuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\Documenten\BUILD\KobraBuild_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\Documenten\BUILD\KobraBuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.224 seconds
+Platform assembly: D:\Documenten\BUILD\KobraBuild_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\Documenten\BUILD\KobraBuild_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 47.697975 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 2250 -> priority: 1 
+  Thread -> id: 960 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 5.720792 ms
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 373.
+Total: 8.937078 ms (FindLiveObjects: 0.040087 ms CreateObjectMapping: 0.029832 ms MarkObjects: 8.268650 ms  DeleteObjects: 0.597576 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 29.166580 ms
+
+Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 383.
+Total: 0.939714 ms (FindLiveObjects: 0.027035 ms CreateObjectMapping: 0.018645 ms MarkObjects: 0.305780 ms  DeleteObjects: 0.586855 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.397141 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 409.
+Total: 0.632536 ms (FindLiveObjects: 0.069453 ms CreateObjectMapping: 0.033095 ms MarkObjects: 0.401802 ms  DeleteObjects: 0.126786 ms)
+
+You cannot quit in the editor.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
