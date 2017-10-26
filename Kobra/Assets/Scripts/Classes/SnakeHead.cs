@@ -3,33 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* SnakeHead:
- * The brain of the snake. Manages direction, positioning, length, death, and also where the bullet spawns when it shoots.
+ * The brain of the snake. Manages direction, positioning, length, and also where the bullet spawns when it shoots.
  */
 
 public class SnakeHead : MonoBehaviour {
     
-    private ObjectPool pool;
+    //Bullet management
     private BulletObjectPool bulletPool;
     private Vector3 spawnPos;
 
-    public int currentLength = 1;
-    public int maxLength = 4;
-
+    //Length management
     public GameObject snakeBody;
+    public int maxLength = 4;
+    private int currentLength = 1;
 
+    //Snake management, including bodypart objectpool
     public Snake head;
     public Snake tail;
     private Snake next;
+    private ObjectPool pool;
 
-    private Vector3 nextPos;
+    //Direction management
     public enum Direction {
         Up,
         Down,
         Left,
         Right,
     }
-
-    public Direction direction;
+    private Direction direction;
+    private Vector3 nextPos;
 
     //these vectors are used to move in the 4 different directions
     private Vector3 goUp = new Vector3(0, 0, 1);
@@ -37,22 +39,21 @@ public class SnakeHead : MonoBehaviour {
     private Vector3 goLeft = new Vector3(-1, 0, 0);
     private Vector3 goRight = new Vector3(1, 0, 0);
 
-
-    void Start() {
+    private void Start() {
+        //Are there alternatives for this?
         head = FindObjectOfType<Snake>();
         pool = FindObjectOfType<ObjectPool>();
         bulletPool = FindObjectOfType<BulletObjectPool>();
         
         //since the head is set inactive later, AddBody is added to the event on Start
         EventManager.DeathEvent += AddBody;
-
     }
 
     public void Move() {
         GameObject temp;
         nextPos = head.transform.position;
 
-        //look at the currentdirection and move accordingly
+        //look at the current direction and move accordingly
         switch (direction) {
             case Direction.Up:
                 nextPos += goUp;
@@ -71,12 +72,12 @@ public class SnakeHead : MonoBehaviour {
                 break;
         }
 
-        //Move the head to the newly instantiated snake part
+        //Move the head to the newly activated snake part
         temp = pool.GetObject(nextPos);
         head.SetNext(temp.GetComponent<Snake>());
         head = temp.GetComponent<Snake>();
 
-        //currentlength is the amount of active snakeobjects, this needs to be equal to the maxlength, since that is increased whenever a player hits the mouse
+        //currentlength is the amount of active snakeobjects, this needs to be equal to the maxlength, since that is increased whenever a player scores a point
         if (currentLength >= maxLength) {
             TailFunction();
         }
@@ -123,19 +124,19 @@ public class SnakeHead : MonoBehaviour {
                     spawnPos = nextPos + (goRight * 2);
                     break;
             }
-            //get bullet from objectpool
+            //get bullet from objectpool with the correct spawn location and direction
             bulletPool.GetObject(spawnPos, direction);
         }
     }
 
-    public void TailFunction() {
+    private void TailFunction() {
         //makes sure the tail is always the last gameobject
         Snake tempSnake = tail;
         tail = tail.GetNext();
         tempSnake.RemoveTail();
     }
 
-    public void AddBody() {
+    private void AddBody() {
         maxLength++;
     }
 }

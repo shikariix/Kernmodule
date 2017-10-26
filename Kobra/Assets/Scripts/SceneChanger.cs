@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 /* Scene Changer:
  * Public functions for buttons to use to change to another scene.
- * Also used when the player dies.
+ * Also used when the player dies to change the scene to the GameOver scene.
  */
 
 public class SceneChanger : MonoBehaviour {

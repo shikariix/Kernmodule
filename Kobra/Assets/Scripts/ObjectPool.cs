@@ -10,7 +10,7 @@ public class ObjectPool : MonoBehaviour {
 	public Snake[] objects;
 	public int currentSnake = 0;
 
-	void Start() {
+	private void Start() {
 		objects = new Snake[MAX_LENGTH];
 		for (int i = 0; i < MAX_LENGTH; ++i) {
             //this creates the objects all on the same position

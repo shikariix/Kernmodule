@@ -11,8 +11,15 @@ public class Snake : MonoBehaviour, IDamagable {
     
     private Snake next;
     
+    //when the snake hits pretty much anything, it dies
+    private void OnCollisionEnter(Collision col) {
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "Bullet" || col.gameObject.tag == "Mouse") {
+            Die();
+        }
+    }
+
     //Setter and Getter for snake movement
-	public void SetNext(Snake IN) {
+    public void SetNext(Snake IN) {
 		next = IN;
 	}
     
@@ -27,13 +34,6 @@ public class Snake : MonoBehaviour, IDamagable {
     //Dying redirects to the gameover screen
     public void Die() {
         SceneChanger.GameOver();
-    }
-
-    //when the snake hits pretty much anything, it dies
-    void OnCollisionEnter(Collision col) {
-        if (col.gameObject.tag == "Player" || col.gameObject.tag == "Bullet" || col.gameObject.tag == "Mouse") {
-            Die();
-        }
     }
 
 }

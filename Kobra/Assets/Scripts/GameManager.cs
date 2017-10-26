@@ -11,21 +11,21 @@ public class GameManager : MonoBehaviour {
 	public SnakeHead player;
 	public Mouse mouse;
 
-	void Start() {
+	private void Start() {
         player = FindObjectOfType<SnakeHead>();
         mouse = FindObjectOfType<Mouse> ();
 
 		InvokeRepeating ("TimerInvoke", 0, 0.1f);
 	}
 
-	void FixedUpdate() {
+	private void FixedUpdate() {
 		if (Input.anyKey) {
 			player.ChangeDir ();
             player.Shoot();
 		}
 	}
 
-	void TimerInvoke() {
+	private void TimerInvoke() {
 		player.Move ();
 
 	}
